@@ -3,21 +3,22 @@ image: microsoft/dotnet:latest
 stages:
     - build
     - test
+    - deploy
 
-variables:
-    test: "Example.Test"
-
-before_script:
-    - "cd src"
-    - "dotnet restore"
 
 build:
     stage: build
     script:
-        - "dotnet build"
+        - dotnet build
 
 test:
     stage: test
     script:
-        - "cd $test"
-        - "dotnet test"
+        - dotnet test
+
+deploy: 
+    stage: deploy
+    script:
+        - c:\scripts\deploy.cmd
+    environment:
+        - test 
